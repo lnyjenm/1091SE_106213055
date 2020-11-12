@@ -6,14 +6,13 @@ if (isset($_GET['m'])){
 } else {
 	$msg="Good morning";
 }
-//?boss=1 --> 顯示已完成工作
-//localhost:8080/1091se/class1112/MVC/todoListView.php?boss=1
+
 if (isset($_GET['boss'])){
 	$bossMode = (int)$_GET['boss'];
 } else {
 	$bossMode=0;
 }
-//取得資料
+
 $result=getJobList($bossMode);
 $jobStatus = array('未完成','已完成','已結案','已取消');
 
@@ -43,7 +42,7 @@ $jobStatus = array('未完成','已完成','已結案','已取消');
 	<td>-</td>
   </tr>
 <?php
-//顯示所取得的資料
+
 while (	$rs=mysqli_fetch_assoc($result)) {
 	switch($rs['urgent']) {
 		case '緊急':
@@ -76,15 +75,15 @@ while (	$rs=mysqli_fetch_assoc($result)) {
 		case 0:
 			if ($bossMode) {
 				echo "<a href='todoEditForm.php?id={$rs['id']}'>Edit</a>  ";	
-				echo "<a href='todoSet.php?act=cancel&id={$rs['id']}'>Cancel</a>  " ;
+				echo "<a href='todoSetControl.php?act=cancel&id={$rs['id']}'>Cancel</a>  " ;
 			} else {
 				echo "<a href='todoSetControl.php?act=finish&id={$rs['id']}'>Finish</a>  ";
 			}
 
 			break;
 		case 1:
-			echo "<a href='todoSet.php?act=reject&id={$rs['id']}'>Reject</a>  ";
-			echo "<a href='todoSet.php?act=close&id={$rs['id']}'>Close</a>  ";
+			echo "<a href='todoSetControl.php?act=reject&id={$rs['id']}'>Reject</a>  ";
+			echo "<a href='todoSetControl.php?act=close&id={$rs['id']}'>Close</a>  ";
 			break;
 		default:
 			break;
